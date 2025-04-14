@@ -2,7 +2,7 @@
 
 Este projeto foi desenvolvido para facilitar o controle de **documentos corporativos que exigem tratativas manuais**, como **Notas Fiscais (NFs)**. Utilizando **Google Apps Script** integrado ao **Google Sheets**, com uma interface web simples e responsiva, o sistema permite registrar o início e o fim das tratativas desses documentos.
 
-Com isso, é possível medir o tempo entre o recebimento e a finalização de cada tratativa, fornecendo dados valiosos para **análise de performance e otimização de processos**.
+Com isso, é possível medir o tempo entre o início e a finalização de cada tratativa, fornecendo dados valiosos para **análise de performance e otimização de processos**.
 
 ---
 
@@ -13,6 +13,7 @@ Com isso, é possível medir o tempo entre o recebimento e a finalização de ca
 - Validação automática para evitar registros duplicados.
 - Registro de data e hora para análise de tempo de atendimento.
 - Integração nativa com Google Sheets (dispensa banco de dados externo).
+- **Cálculo de tempo de fila (tempo total de tratativa) para cada documento.**
 
 ---
 
@@ -55,15 +56,15 @@ Com isso, é possível medir o tempo entre o recebimento e a finalização de ca
 
 ---
 
-## 🗂️ Estrutura da Planilha (aba: `Planilha1`)
+### 4. ⏱️ Cálculo de Tempo de Tratativa
 
-| Coluna | Conteúdo               |
-|--------|------------------------|
-| A      | Índice/ID (automático) |
-| B      | Documento/Número       |
-| C      | Data e Hora de Início  |
-| D      | Data e Hora de Fim     |
-| E      | Status (`Pendente` ou `Finalizado`) |
+- O tempo total de fila (ou tratativa) de cada documento pode ser calculado diretamente no Google Sheets, com base nas colunas:
+  - **Data e Hora de Início** (coluna C)
+  - **Data e Hora de Fim** (coluna D)
+- Exemplo de fórmula no Google Sheets:
+  
+  ```excel
+  =D2 - C2
 
 ---
 
