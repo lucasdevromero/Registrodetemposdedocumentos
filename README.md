@@ -1,2 +1,71 @@
-# Registrodetemposdedocumentos
-Sistema de Controle de Tratativas de Documentos
+# 📋 Sistema de Controle de Tratativas de Documentos
+
+Este projeto foi desenvolvido para facilitar o controle de **documentos corporativos que exigem tratativas manuais**, como **Notas Fiscais (NFs)**. Utilizando **Google Apps Script** integrado ao **Google Sheets**, com uma interface web simples e responsiva, o sistema permite registrar o início e o fim das tratativas desses documentos.
+
+Com isso, é possível medir o tempo entre o recebimento e a finalização de cada tratativa, fornecendo dados valiosos para **análise de performance e otimização de processos**.
+
+---
+
+## 💡 Funcionalidades
+
+- Interface web amigável e responsiva.
+- Registro de início e finalização de tratativas em lote.
+- Validação automática para evitar registros duplicados.
+- Registro de data e hora para análise de tempo de atendimento.
+- Integração nativa com Google Sheets (dispensa banco de dados externo).
+
+---
+
+## 🔧 Como Funciona
+
+### 1. Interface Web
+
+- Desenvolvida em HTML, CSS e JavaScript.
+- O usuário pode:
+  - Selecionar se deseja **iniciar** ou **finalizar** a tratativa de documentos.
+  - Inserir múltiplos documentos (ex: números de NF) separados por vírgulas ou por linha.
+  - Visualizar mensagens claras sobre sucesso, erro e status de carregamento.
+
+---
+
+### 2. Registro de Início de Tratativa (`registrarFilaMultipla`)
+
+- Recebe uma lista de documentos digitados pelo usuário.
+- Para cada documento:
+  - Se já estiver como **"Pendente"**, não é registrado novamente e é informado como duplicado.
+  - Se já estiver **"Finalizado"**, também é ignorado.
+  - Se for **novo**, é registrado na planilha com:
+    - Data/hora atual no campo de início.
+    - Status definido como **"Pendente"**.
+- Retorna um resumo ao usuário com:
+  - Documentos novos registrados com sucesso.
+  - Documentos já pendentes.
+  - Documentos já finalizados.
+
+---
+
+### 3. Registro de Fim de Tratativa (`finalizarFilaMultipla`)
+
+- Recebe uma lista de documentos.
+- Para cada documento:
+  - Se estiver com status **"Pendente"**, altera o status para **"Finalizado"** e registra a data/hora de encerramento.
+  - Se já estiver com status **"Finalizado"**, informa que já foi concluído.
+  - Se **não for encontrado na planilha**, retorna como não registrado.
+- As atualizações são feitas de forma otimizada e em lote.
+
+---
+
+## 🗂️ Estrutura da Planilha (aba: `Planilha1`)
+
+| Coluna | Conteúdo               |
+|--------|------------------------|
+| A      | Índice/ID (automático) |
+| B      | Documento/Número       |
+| C      | Data e Hora de Início  |
+| D      | Data e Hora de Fim     |
+| E      | Status (`Pendente` ou `Finalizado`) |
+
+---
+
+## 🗃️ Estrutura do Projeto
+
