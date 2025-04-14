@@ -112,8 +112,8 @@ Abaixo estão os arquivos de código utilizados neste projeto:
 
 ### 1. [Code.gs](https://github.com/lucasdevromero/Registrodetemposdedocumentos/blob/main/Code.gs)
 
-### 2. [index.html](https://github.com/seu-usuario/seu-repositorio/blob/main/index.html)
+### 2. [index.html](https://github.com/lucasdevromero/Registrodetemposdedocumentos/blob/main/index.html)
 
-### 3. [ScriptPlanilha.gs](https://github.com/seu-usuario/seu-repositorio/blob/main/ScriptPlanilha.gs)
+### 3. [ScriptPlanilha.gs](https://github.com/lucasdevromero/Registrodetemposdedocumentos/blob/main/ScriptPlanilha.gs)
 
 
