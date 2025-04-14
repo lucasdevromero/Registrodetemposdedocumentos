@@ -69,6 +69,11 @@ Com isso, é possível medir o tempo entre o início e a finalização de cada t
 ---
 
 ## 🗃️ Estrutura do Projeto
+📁 controle-tratativas-documentos/
+├── 📄 Code.gs           # Código backend (Google Apps Script)
+├── 📄 index.html        # Interface frontend (formulário e lógica JS)
+└── 📄 README.md         # Documentação do projeto
+
 ---
 
 ## ✅ Tecnologias Utilizadas
