@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Gerenciamento de Mensagens</title>
+    <style>
+      body {
+        font-family: Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #051039;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: white;
+        animation: fadeIn 1s ease-out;
+      }
+
+      #form-container {
+        display: flex;
+        flex-direction: column; /* Alinha os itens na direção vertical (coluna) */
+        justify-content: center; /* Alinha os itens no centro */
+        gap: 0.1px; /* Adiciona um espaço de 20px entre os itens dentro do contêiner */
+        width: 80%;
+        max-width: 600px;
+        animation: slideUp 0.5s ease-out;
+      }
+
+      .radio-buttons {
+        margin-bottom: 20px;
+        color: white;
+        font-size: 1.5em; /* Estilo de fonte equivalente ao h2 */
+      }
+
+      .radio-buttons input {
+        margin-right: 10px;
+        color: white;
+        transform: scale(2); /* Aumenta o tamanho do radio button */
+      }
+
+      textarea {
+        width: 50%;
+        height: 300px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 0 auto 20px auto; /* Centraliza o textarea horizontalmente */
+        display: block; /* Garantir que o textarea seja um bloco e ocupe toda a largura disponível */
+        background-size: 100% 20px; /* Tamanho das linhas horizontais */
+        line-height: 20px; /* Espaçamento entre as linhas de texto */
+        color: #333; /* Cor do texto */
+      }
+
+
+      button {
+        padding: 12px 25px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .error-message {
+        color: red;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center; /* Centraliza o texto horizontalmente */
+        width: 100%; /* Garante que o elemento ocupe toda a largura disponível */
+      }
+      .success-message {
+        color: green;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center; /* Centraliza o texto horizontalmente */
+        width: 100%; /* Garante que o elemento ocupe toda a largura disponível */        
+      }
+
+      @keyframes loadingAnim {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+      }
+
+      .loading-message {
+        color: #ff6600;
+        font-weight: bold;
+        margin-top: 20px;
+        text-align: center; /* Centraliza o texto horizontalmente */
+        width: 100%; /* Garante que o elemento ocupe toda a largura disponível */
+        animation: loadingAnim 2s infinite;
+      }
+      
+      .hidden {
+        display: none;
+      }
+
+      .logo {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 150px;
+        z-index: 10;
+      }
+
+      .logo img {
+        width: 100%;
+        height: auto;
+      }
+
+      .assinatura {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        font-size: 10px;
+        color: white;
+        font-style: italic;
+        z-index: 1000;
+      }
+
+      /* Animações */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        0% {
+          transform: translateY(30px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 20px;  /* Adiciona algum espaçamento nas laterais */
+        }
+
+        #form-container {
+          width: 100%;
+          max-width: none;  /* Remove o max-width */
+        }
+
+        button {
+          width: 100%;  /* Botão ocupa toda a largura em telas pequenas */
+        }
+
+        textarea {
+          width: 100%; /* O textarea ocupa 100% da largura */
+          height: 200px; /* Ajuste de altura */
+        }
+      }
+
+      @media (max-width: 500px) {
+        h1 {
+          font-size: 22px;
+        }
+
+        h2 {
+          font-size: 16px;
+        }
+
+        .planilha {
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Logo da empresa -->
+    <div class="logo">
+      <img src="https://www.cevalogistics.com/public-cdn/images-spx/x_large_picture/CEVA_Logo_Blue_HR.jpg" alt="Logo CEVA Logistics" />
+    </div>
+
+    <h1>Registro - Fila de Mensagem</h1>
+
+    <div class="radio-buttons">
+      <label>
+        <input type="radio" name="acao" value="iniciar" onclick="toggleFields()" checked> Iniciar Fila
+      </label>
+      <label>
+        <input type="radio" name="acao" value="finalizar" onclick="toggleFields()"> Finalizar Fila
+      </label>
+    </div>
+
+    <div id="form-container">
+      <textarea id="numeros" placeholder="Digite os documentos separados por vírgulas ou em novas linhas"></textarea><br />
+      <button class="button" onclick="enviarFila()">Enviar</button>
+      <div id="erro" class="error-message"></div> <!-- Div para mostrar erros -->
+      <div id="sucesso" class="success-message"></div> <!-- Div para mostrar sucesso -->
+      <div id="loading" class="loading-message hidden">Carregando... Por favor, aguarde...</div> <!-- Div para mostrar carregando -->
+    </div>
+
+    <div class="assinatura">Desenvolvido por Lucas Romero da Silva, Responsável pela Análise de Dados | CEVA Logistics</div>
+
+    <script>
+      // Função para alternar entre os campos de entrada com base na escolha do radio button
+      function toggleFields() {
+        var acaoSelecionada = document.querySelector('input[name="acao"]:checked').value;
+        var texto = document.getElementById('numeros');
+        
+        if (acaoSelecionada === "iniciar") {
+          // O usuário escolheu Iniciar Fila
+          texto.placeholder = "Digite os documentos a serem iniciados, separados por vírgulas ou em novas linhas";
+        } else {
+          // O usuário escolheu Finalizar Fila
+          texto.placeholder = "Digite os documentos a serem finalizados, separados por vírgulas ou em novas linhas";
+        }
+      }
+
+      // Função para enviar a fila (iniciar ou finalizar)
+      function enviarFila() {
+        var acaoSelecionada = document.querySelector('input[name="acao"]:checked').value;
+        var numeros = document.getElementById('numeros').value;
+        var listaNumeros = numeros.split(/[\n,]+/).map(function(item) {
+          return item.trim();
+        }).filter(function(item) {
+          return item.length > 0; // Remove números vazios
+        });
+
+        // Mostrar mensagem de carregando
+        document.getElementById('loading').classList.remove('hidden');
+        document.getElementById('erro').innerHTML = ""; // Limpa mensagens de erro anteriores
+        document.getElementById('sucesso').innerHTML = ""; // Limpa mensagens de sucesso anteriores
+
+        if (listaNumeros.length > 0) {
+          try {
+            if (acaoSelecionada === "iniciar") {
+              google.script.run.withSuccessHandler(exibirMensagem).registrarFilaMultipla(listaNumeros);
+            } else {
+              google.script.run.withSuccessHandler(exibirMensagem).finalizarFilaMultipla(listaNumeros);
+            }
+            // Limpa o campo de entrada
+            document.getElementById('numeros').value = '';
+          } catch (error) {
+            // Exibe a mensagem de erro
+            document.getElementById('erro').innerHTML = error.message;
+          }
+        } else {
+          alert("Por favor, digite pelo menos um número.");
+        }
+      }
+
+
+      function exibirMensagem(resposta) {
+        let erroMensagem = '';
+        let sucessoMensagem = '';
+
+        // Esconde a mensagem de "Carregando"
+        document.getElementById('loading').classList.add('hidden');
+
+        // Mensagens de sucesso
+        if (resposta.sucesso) {
+          sucessoMensagem = "Os números foram registrados com sucesso!<br>";
+        }
+
+        // Mensagens de erro mais específicas
+        if (resposta.pendentes && resposta.pendentes.length > 0) {
+          erroMensagem += "<b>Documentos já registrados como pendente:</b><br>" + resposta.pendentes.join('<br>') + "<br>";
+        }
+
+        if (resposta.finalizados && resposta.finalizados.length > 0) {
+          erroMensagem += "<b>Documentos já finalizados:</b><br>" + resposta.finalizados.join('<br>') + "<br>";
+        }
+
+        if (resposta.naoEncontrados && resposta.naoEncontrados.length > 0) {
+          erroMensagem += "<b>Documentos não encontrados:</b><br>" + resposta.naoEncontrados.join('<br>') + "<br>";
+        }
+
+        if (resposta.novos && resposta.novos.length > 0) {
+          sucessoMensagem += "<b>Documentos novos registrados com sucesso</b>";
+        }
+
+        // Exibe as mensagens de erro ou sucesso
+        document.getElementById('erro').innerHTML = erroMensagem;
+        document.getElementById('sucesso').innerHTML = sucessoMensagem;
+
+        // Resetando o radio button
+        document.querySelector('input[name="acao"][value="iniciar"]').checked = true;
+        toggleFields(); // Atualiza o campo de entrada conforme a seleção do radio button
+
+        // Limpa as mensagens após 10 segundos
+        setTimeout(() => {
+          document.getElementById('erro').innerHTML = "";
+          document.getElementById('sucesso').innerHTML = "";
+        }, 10000);
+      }
+
+
+    </script>
+  </body>
+</html>
