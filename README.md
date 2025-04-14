@@ -64,15 +64,18 @@ Com isso, é possível medir o tempo entre o início e a finalização de cada t
 - Exemplo de fórmula no Google Sheets:
   
   ```excel
-  =D2 - C2
+  =TEXT(D2 - C2, "hh:mm:ss")
+
 
 ---
 
 ## 🗃️ Estrutura do Projeto
 📁 controle-tratativas-documentos/
-- 📄 Code.gs           # Código backend (Google Apps Script)
-- 📄 index.html        # Interface frontend (formulário e lógica JS)
-- 📄 README.md         # Documentação do projeto
+├── 📄 Code.gs           # Código backend (Google Apps Script)
+├── 📄 index.html        # Interface frontend (formulário e lógica JS)
+├── 📄 ScriptPlanilha.gs # Código adicional para manutenção da planilha
+└── 📄 README.md         # Documentação do projeto
+
 
 ---
 
