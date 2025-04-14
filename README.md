@@ -68,4 +68,36 @@ Com isso, é possível medir o tempo entre o recebimento e a finalização de ca
 ---
 
 ## 🗃️ Estrutura do Projeto
+---
+
+## ✅ Tecnologias Utilizadas
+
+- Google Apps Script (automação backend)
+- Google Sheets (armazenamento de dados)
+- HTML5 / CSS3 (interface visual)
+- JavaScript (lógica e integração)
+
+---
+
+## 🎯 Objetivo do Sistema
+
+O principal objetivo deste sistema é **controlar e monitorar o tempo de tratativa de documentos internos**, como NFs, que passam por processos manuais ou verificações. Com isso, é possível:
+
+- Identificar gargalos operacionais.
+- Otimizar etapas repetitivas.
+- Garantir rastreabilidade e histórico.
+- Aumentar a eficiência nos fluxos de trabalho.
+
+---
+
+## 👨‍💻 Desenvolvedor
+
+**Lucas Romero da Silva**  
+Responsável pela Análise de Dados | CEVA Logistics
+
+---
+
+## 📎 Códigos Fonte
+
+Abaixo estão os arquivos de código utilizados neste projeto:
 
